@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<canvas id="myCanvas" width="200" height="100" style="border:1px solid #000000;">
+Your browser does not support the HTML5 canvas tag.
+</canvas>
+
+<script>
+var canvas = document.getElementById('myCanvas');
+var ctx = canvas.getContext('2d');
+ctx.beginPath();
+ctx.rect(30,30, 50, 50);
+ctx.stroke();
+//------ 理解了，原来画矩形时画矩形，填充颜色时填充颜色，是独立开来的。 
+//------ 别急，学习实践要遵循事物的原理， 学习也应当持怀疑态度，不能盲目的跟随经验而不思考，不能盲从于牛人而自我贬低。
+//-------发挥自己的有点，潜心去研究，脚踏实地一步一步，总会有所进步的。
+ctx.fillStyle = "red";
+ctx.fillRect(30,30,50,30);
+var y=30;
+var increase = true;
+setInterval(function(){
+	if(increase){
+		if(y<51){
+    		y++;
+            ctx.fillStyle = "red";
+			ctx.fillRect(30, 30, 50, y);
+		}else{
+			ctx.fillStyle = "yellow";
+			ctx.fillRect(30, 30, 50, 50);
+			increase = false;
+            y=0;
+		}
+	}
+	else{
+		if(y<51){
+    		y++;
+            ctx.fillStyle = "green";
+            console.log(y);
+			ctx.fillRect(30, 30, 50, y);
+		}else{
+			ctx.fillStyle = "yellow";
+			ctx.fillRect(30, 30, 50, 50);
+			increase = true;
+            y=0;
+		}
+	}
+	
+}, 50)
+</script>
+</body>
+</html>
