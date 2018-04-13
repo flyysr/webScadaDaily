@@ -1,0 +1,22 @@
+The HTML5 <canvas> tag is used to draw graphics, on the fly, via scripting (usually JavaScript).
+
+However, the <canvas> element has no drawing abilities of its own (it is only a container for graphics) - you must use a script to actually draw the graphics.
+
+The getContext() method returns an object that provides methods and properties for drawing on the canvas.
+
+This reference will cover the properties and methods of the getContext("2d") object, which can be used to draw text, lines, boxes, circles, and more - on the canvas.
+
+1. draw a line:
+	ctx.moveTo();
+	ctx.lintTo();
+	ctx.stroke();
+2. draw a cicle:
+	ctx.beginPath();
+	ctx.arc(x,y,r, startangle, endangle);
+	ctx.stroke();
+3. draw text on canvas:
+	ctx.font = "30px Arial";
+	ctx.fillText("Hello, world.", 10, 50);
+4. draw a image on canvas:
+	var img = document.getElementById("scream"); //正常情况下，这个img 怎么载入的问题。
+	ctx.drawImage(img, 10, 10);
