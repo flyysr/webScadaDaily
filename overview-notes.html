@@ -5,6 +5,20 @@ However, the <canvas> element has no drawing abilities of its own (it is only a 
 The getContext() method returns an object that provides methods and properties for drawing on the canvas.
 
 This reference will cover the properties and methods of the getContext("2d") object, which can be used to draw text, lines, boxes, circles, and more - on the canvas.
+	
+//*************************************************
+beginPath()                 //重置或者开始当前路径
+strokeStyle                 //设置笔触的颜色，即画出来的颜色
+arc(x,y,r,sangle,eangle,boolean)      //画一个圆弧，参数分别是：圆心的x，y轴、半径、起始点和结束点、逆时针还是顺时针
+stroke()                    //绘制定义好的路径
+font                        //设置字体的属性
+lineWidth                   //绘制路径时线的宽度
+strokeText(text,x,y)        //绘制字体,参数分别是：要绘制的字、起始点的x、y坐标
+clearRect(x,y,width,height)       //清除矩形内所有的路径，参数分别是：矩形起点的x、y坐标、矩形的宽、高
+save()                      //保存当前环境的状态
+restore()                   //返回之前保存过的路径状态和属性	
+//*************************************************
+	
 
 1. draw a line:
 	ctx.moveTo();
