@@ -1,0 +1,38 @@
+<html>
+<body>
+
+<canvas id="myCanvas" width="200" height="100" style="border:1px solid #000000;">
+Your browser does not support the HTML5 canvas tag.
+</canvas>
+<script>
+var canvas = document.getElementById('myCanvas');
+    width = canvas.offsetWidth,
+    
+    //  计算画布的高度
+    height = canvas.offsetHeight,
+    canvas.width = width;
+    canvas.height = height;
+    console.log(canvas.rx);
+	var ctx = canvas.getContext('2d');
+ 	ctx.moveTo(0, 20);
+	ctx.lineTo(100, 20);
+	ctx.stroke();
+    
+    
+    ctx.fillRect(10,10, 50,50)
+    
+    
+var img = new Image();
+
+img.onload = function() {
+		alert('load img');
+    ctx.drawImage(img, 0, 0); // background simulation
+    //drawOnOtherCanvas();
+    //ctx.drawImage(can2, 0, 0);
+}
+
+img.src = 'http://placekitten.com/500/500';
+</script>
+</body>
+</html>
+	
