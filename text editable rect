@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="./js/fabric.js"></script>
+</head>
+<body>
+    <canvas id="canvas" style="border: 1px solid #CCCCCC"></canvas>
+    <!--<script src="./t.js"></script>-->
+<script>
+	var canvas = new fabric.Canvas('canvas');
+	canvas.setWidth(800);
+	canvas.setHeight(500);
+
+	var rect = new fabric.Rect({
+		left: 50,
+		top: 50,
+		width: 250,
+		height: 50,
+		fill: '#fff',
+		stroke: 'rgba(34,177,76,1)',
+		strokeWidth: 5
+	});
+	var inText = new fabric.IText('', {
+		fontFamily: 'Comic Sans',
+		fontSize: 28,
+		stroke: '#000',
+		strokeWidth: 1,
+		fill: "#000",
+		left: 170,
+		top: 60
+	});
+	// inText.isInGroup = true;
+	// canvas.on("text:editing:exited", function (e) {
+	//    console.log('updated text:',e.target);
+	//    console.log('updated text:',e.target.text);
+	//    console.log('updated text:',e.target.isInGroup);
+	//    console.log("text:editing:exited");
+	// });
+
+	var group = new fabric.Group([rect, inText], {
+		left: 50,
+		top: 50
+	});
+	group.on('mousedown', fabricDblClick(group, handler));
+
+	canvas.add(group);
+
+	function fabricDblClick(obj, handler){
+		// alert('adfa');
+		return function(){
+			if(obj.clicked){
+				handler(obj);
+			}else{
+				obj.clicked = true;
+				setTimeout(function(){
+					obj.clicked = false;
+				}, 500);
+			}
+		}
+	}
+
+	function ungroup(g){
+		//@reference https://stackoverflow.com/questions/46076682/unable-to-ungroup-with-fabric-js
+		var items = g.getObjects();
+		// g._restoreObjectsState();
+		g.destroy();
+		canvas.remove(g);
+		items.forEach(function(item) {
+			item.selectable = false;
+			if(item.type === 'i-text'){
+				item.selectable = true;
+			}
+			item.set('dirty', true);
+		});
+		canvas.add.apply(canvas, items);
+		canvas.renderAll();
+		return items;
+	}
+
+	function handler(g){
+		var newItems = ungroup(g);
+
+		var items = g._objects, iText;
+		for(var i = 0; i < items.length; i++){
+			if(items[i].type === 'i-text'){
+				iText = items[i];
+				canvas.setActiveObject(iText);
+				iText.enterEditing();
+				iText.selectAll();
+				break;
+			}
+		}
+
+		//i-text文字居中处理
+		var rect;
+		for(var i = 0; i<items.length; i++){
+			if(items[i].type === 'rect'){
+				rect = items[i];
+				break;
+			}
+		}
+		iText.on('changed', function(){
+			this.setLeft(rect.left + (rect.width/2 - this.width/2));
+			canvas.renderAll();
+		});
+
+		iText.off('editing:exited');
+		iText.on('editing:exited', function () {
+			//remove the old items
+			newItems.forEach(function(i){
+				canvas.remove(i);
+			});
+
+			var newGroup = new fabric.Group(items, {});
+			canvas.add(newGroup);
+			newGroup.on('mousedown', fabricDblClick(newGroup, handler));
+
+			canvas.renderAll();
+		});
+
+	}
+
+
+</script>
+</body>
+</html>
