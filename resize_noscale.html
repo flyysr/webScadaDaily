@@ -1,0 +1,58 @@
+<canvas id="canvas" width="800" height="600"></canvas>
+(function() {
+    var canvas = this.__canvas = new fabric.Canvas('canvas');
+    canvas.on('object:selected', function(e){
+			console.log('ooooo');
+      var o = e.target;
+      o.on({
+      'scaling': function(e) {
+        console.log('selected!!');
+          var obj = this,
+              w = obj.width * obj.scaleX,
+              h = obj.height * obj.scaleY,
+              s = obj.strokeWidth;
+
+          obj.set({
+              'height'     : h,
+              'width'      : w,
+              'scaleX'     : 1,
+              'scaleY'     : 1
+          });
+      }
+      });
+		});
+  
+    // create a rectangle with a fill and a different color stroke
+    var rect = new fabric.Rect({
+       left: 50,
+       top: 50,
+       width: 50,
+       height: 50,
+       fill: 'transparent',
+       stroke: 'rgba(34,177,76,1)',
+       strokeWidth: 5
+    });
+    /* rect.on({
+    'scaling': function(e) {
+      console.log('selected!!');
+    var obj = this,
+        w = obj.width * obj.scaleX,
+        h = obj.height * obj.scaleY,
+        s = obj.strokeWidth;
+    
+    obj.set({
+        'height'     : h,
+        'width'      : w,
+        'scaleX'     : 1,
+        'scaleY'     : 1
+    });
+    }
+    }); */
+    canvas.add(rect);
+    var text = new fabric.IText('text', {});
+    canvas.add(text);
+    canvas.bringToFront(rect);
+    canvas.renderAll();    
+})();
+
+
