@@ -1,0 +1,40 @@
+<html>
+<head>
+<script type="text/javascript">
+
+    function say(){
+    	console.log('say arguments: ', arguments);
+    	console.log(arguments.length);
+    	for(var i in arguments){
+    		console.log(arguments[i]);
+        }
+    }
+    say(1, 2, 3);
+    document.onmousemove = function (ev) {
+    	console.log('moving', ev);
+    	for(var i in ev){
+    		console.log("i: ", i, '-------------:',ev[i]);
+        }
+    };
+
+    function cancelEve(){
+    	document.onmousemove = null;
+    }
+</script>
+<head>
+<body>
+<h1>
+    The "Post-Link" Function Is The "Link" Function In AngularJS Directives
+</h1>
+
+<p
+        bn-using-post-link
+        bn-using-link
+        bn-using-fn-only>
+
+    Look at the console-output; I am logging the link-functions from within the
+    AngularJS source-code.
+    <button onclick="cancelEve();">取消事件</button>
+</p>
+</body>
+</html>
